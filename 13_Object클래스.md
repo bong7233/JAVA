@@ -59,9 +59,8 @@ public class BookTest {
 ![hash.png](./img/hash.png)
 
 - 두 인스턴스가 같다는 것은?  
-  두 인스턴스에 대한 equals()의 반환 값이 true
-  동일한 hashCode() 값을 반환
-- 논리적으로 동일함을 위해 equals() 메서드를 재정의 하였다면 hashCode()메서드도 재정의 하여 동일한 hashCode 값이 반환되도록 한다
+  두 인스턴스에 대한 equals()의 반환 값이 true -> 동일한 hashCode() 값을 반환
+- 논리적으로 동일함을 위해 equals() 메서드를 재정의 하였다면 hashCode()메서드도 재정의 하여 동일한 hashCode 값이 반환되도록 한다(즉 equals와 hashcode는 쌍으로 쓰이는경우가 많다)
 
 ```JAVA
 // Student.java
@@ -76,9 +75,10 @@ public class Student {
 		this.studentName = studentName;
 	}
 	
+    // 메모리주소는 다르지만 논리적으로 같다면(이경우는 학번이같다면) true를 반환하도록하는 equal()
 	public boolean equals(Object obj) {
 		if( obj instanceof Student) {
-			Student std = (Student)obj;
+			Student std = (Student)obj; // obj를 student로 다운캐스팅
 			if(this.studentId == std.studentId )
 				return true;
 			else return false;
@@ -86,7 +86,7 @@ public class Student {
 		return false;
 		
 	}
-	
+    // 학번이같다면 메모리주소가 다르더라도 같은 hashcode값을 반환하도록 재정의
 	@Override
 	public int hashCode() {
 		return studentId;
@@ -102,55 +102,46 @@ public class EqualTest {
 		Student Lee2 = Lee;
 		Student Shun = new Student(100, "Lee");
 		
-		System.out.println(Lee == Shun);
-		System.out.println(Lee.equals(Shun));
-		
-		System.out.println(Lee.hashCode());
-		System.out.println(Shun.hashCode());
-		
+		System.out.println(Lee == Shun); // false 메모리값은 다름
+		System.out.println(Lee.equals(Shun)); // true
+		System.out.println(Lee.hashCode()); // 100
+		System.out.println(Shun.hashCode()); // 100
 		
 		Integer i1 = new Integer(100);
 		Integer i2 = new Integer(100);
 		
-		System.out.println(i1.equals(i2));
-		System.out.println(i1.hashCode());
-		System.out.println(i2.hashCode());
-		
-		System.out.println(System.identityHashCode(i1));
-		System.out.println(System.identityHashCode(i2));
+		System.out.println(i1.equals(i2)); // true
+		System.out.println(i1.hashCode()); // 100
+		System.out.println(i2.hashCode()); // 100
 
+		// 만약 오버라이딩되지않은 진짜 해쉬코드를 보고싶다면 확인가능
+		System.out.println(System.identityHashCode(i1)); // 1159190947
+		System.out.println(System.identityHashCode(i2)); // 925858445
 	}
 }
 ```
 
 ## clone() 메서드
-
-- 객체의 원본을 복제하는데 사용하는 메서드
-
+- 객체의 원본을 복제하는데 사용하는 메서드(생성자는 초기화해서 초기값을 가지고 생성하는것이고 클론은 인스턴스상태를 그대로 복제하는것)
 - 생성과정의 복잡한 과정을 반복하지 않고 복제 할 수 있음
-
 - clone()메서드를 사용하면 객체의 정보(멤버 변수 값등...)가 동일한 또 다른 인스턴스가 생성되는 것이므로, 객체 지향 프로그램에서의 정보 은닉, 객체 보호의 관점에서 위배될 수 있음
-
-- 해당 클래스의 clone() 메서드의 사용을 허용한다는 의미로 cloneable 인터페이스를 명시해 줌
-
-Student.java
-```
+- 해당 클래스의 clone() 메서드의 사용을 허용한다는 의미로 cloneable 인터페이스를 명시해 줘야함
+```JAVA
+// Student.java
 public class Student implements Cloneable{
 
+    // 위의 student와 동일
     .......
-
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
+		// clone으로 간단하게 복제가능
 		return super.clone();
 	}
 }
 ```
-
-EqualTest.java
-```
+```JAVA
+// EqualTest.java
     Student Lee3 = (Student)Lee.clone();
 	System.out.println(System.identityHashCode(Lee));
-	System.out.println(System.identityHashCode(Lee3));
-		
+	System.out.println(System.identityHashCode(Lee3));	
 ```		
