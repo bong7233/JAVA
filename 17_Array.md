@@ -89,5 +89,47 @@ public class MyArray {
 		count--;
 		return ret;
 	}
+	public int getSize()
+	{
+		return count;
+	}
+	
+	public boolean isEmpty()
+	{
+		if(count == 0){
+			return true;
+		}
+		else return false;
+	}
+	
+	public int getElement(int position)
+	{
+		if(position < 0 || position > count-1){
+			System.out.println("검색 위치 오류. 현재 리스트의 개수는 " + count +"개 입니다.");
+			return ERROR_NUM;
+		}
+		return intArr[position];
+	}
+	
+	public void printAll()
+	{
+		if(count == 0){
+			System.out.println("출력할 내용이 없습니다.");
+			return;
+		}
+			
+		for(int i=0; i<count; i++){
+			System.out.println(intArr[i]);
+		}
+		
+	}
+	
+	public void removeAll()
+	{
+		for(int i=0; i<count; i++){
+			intArr[i] = 0;
+		}
+		count = 0;
+	}
 }
 ```
