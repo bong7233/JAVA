@@ -142,18 +142,16 @@ ArrayList<String> list = new ArrayList<String>()  => var list = new ArrayList<St
 ```
 <br>
 
-# <T extends 클래스> 사용하기
 
+# <T extends 클래스> 사용
 ## 상위 클래스의 필요성
 - T 자료형의 범위를 제한 할 수 있음
 - 상위 클래스에서 선언하거나 정의하는 메서드를 활용할 수 있음
 - 상속을 받지 않는 경우 T는 Object로 변환되어 Object 클래스가 기본으로 제공하는 메서드만 사용가능
-
 ## T extends 를 사용한 프로그래밍
 - GenericPrinter<T> 에 material 변수의 자료형을 상속받아 구현
 - T에 무작위 클래스가 들어갈 수 없게 Material 클래스를 상속받은 클래스로 한정  
 ![material](./img/material.PNG)
-
 ```java
 // Material.java
 // 재료들이 공통으로 사용할 메서드를 정의
@@ -234,17 +232,18 @@ public class GenericPrinterTest {
 
 ## 제네릭 메서드
 - 자료형 매개변수를 메서드의 매개변수나 반환 값으로 가지는 메서드는
-- 자료형 매개 변수가 하나 이상인 경우도 있음
+- 자료형 매개 변수가 하나 이상인 경우도 있음( T, V, E 등등...)
 - 제네릭 클래스가 아니어도 내부에 제네릭 메서드는 구현하여 사용 할 수 있음
-- public <자료형 매개 변수> 반환형 메서드 이름(자료형 매개변수.....) { }
+  - public <자료형 매개 변수> 반환형 메서드이름(자료형 매개변수.....) { }
 
 ## 제네릭 메서드의 활용
-- 두 점(top, bottom)을 기준으로 사각형을 만들 때 사각형의 너비를 구하는 메서드를 만들어 보자
-- 두 점은 정수인 경우도 있고, 실수인 경우도 있으므로 제네릭 타입을 사용하여 구현한다
+- 두 점(top, bottom)을 기준으로 사각형을 만들 때 사각형의 너비를 구하는 메서드
+  - 두 점은 정수인 경우도 있고, 실수인 경우도 있으므로 제네릭 타입을 사용하여 구현한다
 ```java
 // Point.java
 public class Point<T, V> {
 	
+	// 이 두개의점이 타입매개변수
 	T x;
 	V y;
 	
@@ -264,7 +263,7 @@ public class Point<T, V> {
 
 //GenericMethod.java
 public class GenericMethod {
-
+	// main에서 바로 쓰려고 static으로 만듦
 	public static <T, V> double makeRectangle(Point<T, V> p1, Point<T, V> p2) {
 		double left = ((Number)p1.getX()).doubleValue();
 		double right =((Number)p2.getX()).doubleValue();
@@ -282,6 +281,7 @@ public class GenericMethod {
 		Point<Integer, Double> p1 = new Point<Integer, Double>(0, 0.0);
 		Point<Integer, Double> p2 = new Point<>(10, 10.0);
 		
+		// static 메서드이므로 genericmethod. 으로 사용가능
 		double rect = GenericMethod.<Integer, Double>makeRectangle(p1, p2);
 		System.out.println("두 점으로 만들어진 사각형의 넓이는 " + rect + "입니다.");
 	}
