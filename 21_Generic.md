@@ -279,6 +279,7 @@ public class GenericMethod {
 	public static void main(String[] args) {
 		
 		Point<Integer, Double> p1 = new Point<Integer, Double>(0, 0.0);
+		                          //Point<Integer,Double> 안써도됨
 		Point<Integer, Double> p2 = new Point<>(10, 10.0);
 		
 		// static 메서드이므로 genericmethod. 으로 사용가능
