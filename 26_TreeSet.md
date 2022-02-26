@@ -2,13 +2,13 @@
 
 ## TreeSet 클래스 활용하기
 - 객체의 정렬에 사용하는 클래스
-- Set 인터페이스를 구현하여 중복을 허용하지 않고, 오름차순이나 내림차순으로 객체를 정렬할 수 있음
 - 내부적으로 이진검색트리(binary search tree)로 구현됨
+- Set 인터페이스를 구현하여 중복을 허용하지 않고, 오름차순이나 내림차순으로 객체를 정렬할 수 있음
 - 이진검색트리에 저장하기 위해 각 객체를 비교해야 함
 - 비교 대상이 되는 객체에 Comparable이나 Comparator 인터페이스를 구현 해야 TreeSet에 추가 될 수 있음
-- String, Integer등 JDK의 많은 클래스들이 이미 Comparable을 구현했음
 
 ```java
+// String, Integer등 JDK의 많은 클래스들이 이미 Comparable을 구현했음
 // TreeSetTest.java  
 import java.util.TreeSet;
 
@@ -22,14 +22,14 @@ public class TreeSetTest {
 		treeSet.add("이순신");
 		
 		for(String str : treeSet) {
-			System.out.println(str);
+			System.out.println(str); // [강감찬, 이순신, 홍길동]
 		}
 	}
 }
 ```
 
-- String 클래스는 이미 Comprable 인터페이스가 구현되어 있으므로 오름차순으로 정렬되어 출력됨
 ```java
+// String 클래스는 이미 Comprable 인터페이스가 구현되어 있으므로 오름차순으로 정렬되어 출력됨
 // MemberTreeSet.java
 public class MemberTreeSet {
 
@@ -90,13 +90,13 @@ public class MemberTreeSetTest {
 }
 ```
 
-- Member클래스가 아이디 오름차순으로 정렬되게 하기 위해 Comparable 인터페이스를 구현
 ```java
+// Member클래스가 아이디 오름차순으로 정렬되게 하기 위해 Comparable 인터페이스를 구현
 // Member.java
 public class Member implements Comparable<Member>{
 
 	......
-
+	// 정렬할 기준(비교할 대상)을 구현해줘야 정상적으로 작동함
 	@Override
 	public int compareTo(Member member) {
 		
@@ -106,12 +106,15 @@ public class Member implements Comparable<Member>{
 }
 ```
 
-- **Comparator의 활용** : 이미 Comparable이 구현된 경우 Comparator로 비교하는 방식을 다시 구현할 수 있음
 ```java
+// Comparator의 활용 : 이미 Comparable이 구현된 경우 Comparator로 비교하는 방식을 다시 구현할 수 있음
 class MyCompare implements Comparator<String>{
 
+	// Comparator는 매개변수가 하나들어와서 자기자신과 비교하는것이고
+	// compare는 매개변수 두개가 들어와서 두개를 비교한다
 	@Override
 	public int compare(String s1, String s2) {
+		// s1.compareTo()자체가 오름차순
 		return (s1.compareTo(s2)) *-1 ;
 	}
 }
@@ -125,7 +128,7 @@ public class ComparatorTest {
 		set.add("ccc");
 		set.add("bbb");
 				
-		System.out.println(set);
+		System.out.println(set); // [ccc,bbb,aaa]
 	}
 }
 ```
