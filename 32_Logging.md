@@ -35,13 +35,15 @@
 // MyLogger.java
 public class MyLogger {
 	
-	Logger logger = Logger.getLogger("mylogger");
-	private static MyLogger instance = new MyLogger();
+	Logger logger = Logger.getLogger("mylogger"); // 일종의 식별자
+	private static MyLogger instance = new MyLogger(); // 싱글톤 패턴으로 생성
 	
+    // 로그파일 생성
 	public static final String errorLog = "log.txt";
 	public static final String warningLog = "warning.txt";
 	public static final String fineLog = "fine.txt";
 	
+    // 파일핸들러 생성
 	private FileHandler logFile = null;
 	private FileHandler warningFile = null;
 	private FileHandler fineFile = null;
@@ -49,7 +51,7 @@ public class MyLogger {
 	private MyLogger(){
 	
 			try {
-				logFile = new FileHandler(errorLog, true);
+				logFile = new FileHandler(errorLog, true); // true -> override가 아니라 append로 찍는 방법
 				warningFile = new FileHandler(warningLog, true);
 				fineFile = new FileHandler(fineLog, true);
 				
@@ -65,9 +67,11 @@ public class MyLogger {
 			warningFile.setFormatter(new SimpleFormatter());
 			fineFile.setFormatter(new SimpleFormatter());
 			
-			logger.setLevel(Level.ALL);
-			fineFile.setLevel(Level.FINE);
-			warningFile.setLevel(Level.WARNING);
+			logger.setLevel(Level.ALL); //  default 핸들러 역할
+            // finest ~ severe까지 다 찍기
+			
+            fineFile.setLevel(Level.FINE); // fine파일에는 fine이상만 찍기
+			warningFile.setLevel(Level.WARNING); // warning파일에는 warning이상만 찍기
 			
 			logger.addHandler(logFile);
 			logger.addHandler(warningFile);
@@ -111,13 +115,14 @@ public class LoggerTest {
 
 		MyLogger myLogger = MyLogger.getLogger();
 		
-		myLogger.log("test");
+		myLogger.log("log test");
 	}
 
 }
 ```
 <br>
 
+## 학생이름을 예외처리해서 로그 처리해보기
 ```java
 // StudentNameFormatException.java
 public class StudentNameFormatException extends IllegalArgumentException{
