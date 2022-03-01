@@ -7,13 +7,14 @@
 - semaphore를 얻은 thread 만이 critical section에 들어갈 수 있다  
 ![semaphore](./img/semaphore.png)
 ```java
-// Park 과 ParkWife 가 동시에 Bank 자원에 접근하여 작업이 이루어지는 경우의 예제
+// Park 과 ParkWife 가 동시에 Bank 자원에 접근하여 작업이 이루어지는 경우
 class Bank{
 	
 	private int money = 10000;
 	
-	public synchronized  void saveMoney(int save){
-		
+	public synchronized void saveMoney(int save){
+		// 스레드가 synchronized 로 된 메서드를 수행하는동안 객체를 잠그는 역할(Bank)을 하고 메서드가 마무리되면 다음작업 진행
+
 		int m = this.getMoney();
 		
 		try {
@@ -26,7 +27,7 @@ class Bank{
 		setMoney( m + save);
 	}
 	
-	public synchronized  void minusMoney(int minus){
+	public synchronized void minusMoney(int minus){
 		
 		
 			int m = this.getMoney();
@@ -34,7 +35,6 @@ class Bank{
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -54,7 +54,7 @@ class Bank{
 
 class Park extends Thread{
 	
-	public  void run(){
+	public void run(){
 		System.out.println("start save");
 		SyncMain.myBank.saveMoney(3000);
 		System.out.println("saveMoney(3000): " + SyncMain.myBank.getMoney() );	
@@ -108,8 +108,8 @@ synchronized(참조형 수식) {
 ```
 ### synchronized 메서드
 - 객체의 메소드에 synchronized 키워드 사용
-- 현재 이 메서드가 속해있는 객체에 lock을 건다.
-- 자바에서는 deadlock을 방지하는 기술이 제공되지 않으므로 되도록이면 synchronized 메서드에서 다른 synchronized 메서드는 호출하지 않도록 한다.
+- 현재 이 메서드가 속해있는 객체에 lock을 건다
+- 자바에서는 deadlock을 방지하는 기술이 제공되지 않으므로 되도록이면 synchronized 메서드에서 다른 synchronized 메서드는 호출하면 안된다
 - deadlock 예  
 ![deadlock](./img/deadlock.png)
 
