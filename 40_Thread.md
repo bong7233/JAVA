@@ -208,6 +208,7 @@ public class JoinTest extends Thread{
 ## Thread 종료하기
 - Thread를 종료할 때 사용함
 - 무한 반복의 경우 while(flag)의 flag 변수값을 false로 바꾸어 종료를 시킴  
+
 ```
 ## Thread 종료하기 예제 ##
 세 개의 thread를 만든다.
