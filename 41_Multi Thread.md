@@ -6,7 +6,6 @@
 - 한 순간 오직 하나의 thread 만이 semaphore를 얻을 수 있고, 나머지 thread들은 대기(blocking) 상태가 된다.
 - semaphore를 얻은 thread 만이 critical section에 들어갈 수 있다  
 ![semaphore](./img/semaphore.png)
-
 ```java
 // Park 과 ParkWife 가 동시에 Bank 자원에 접근하여 작업이 이루어지는 경우의 예제
 class Bank{
