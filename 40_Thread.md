@@ -80,6 +80,7 @@ public class ThreadTest2 {
 
 }
 ```
+<br>
 
 ## Thread Status
 ```
@@ -122,17 +123,22 @@ public class PriorityTest {
 	public static void main(String[] args) {
 
 		int i;
-		for(i=Thread.MIN_PRIORITY; i<= Thread.MAX_PRIORITY; i++){
-			
-			PriorityThread pt = new PriorityThread();
-			pt.setPriority(i);
-			pt.start();
+		PriorityThread pt1 = new PriorityThread();
+		PriorityThread pt2 = new PriorityThread();
+		PriorityThread pt3 = new PriorityThread();
 		
-		}
+        
+        pt1.setPriority(Thread.MIN_PRIORITY);
+        pt2.setPriority(Thread.NORM_PRIORITY);
+        pt3.setPriority(Thread.MAX_PRIORITY);
+
+		pt1.start();
+        pt2.start();
+        pt3.start();
+		
+        // MAX(10) -> NORM(5) -> MIN(1) 순으로 작업이 끝난다
 	}
-
 }
-
 ```
 <br>
 
@@ -177,19 +183,17 @@ public class JoinTest extends Thread{
 			jt1.join();
 			jt2.join();
 			
-		}catch (InterruptedException e) {
+		}catch (InterruptedException e) { // join이나 wait을 사용할떄는 예외처리를 해줘야 한다
 			System.out.println(e);
 		}
 		
-		
-		int lastTotal = jt1.total + jt2.total;
-		
-		System.out.println("jt1.total = " + jt1.total);
-		System.out.println("jt2.total = " + jt2.total);
-		
-		System.out.println("lastTotal = " + lastTotal);
-		
+        int lastTotal = jt1.total + jt2.total;
+        //만약 join 을 하지않으면 lastTotal은 main 스레드에서 가장먼저 종료되버리므로 나머지 스레드 두개의 연산이 끝나기전에 0으로 선언되어버림
 				
+		System.out.println("jt1.total = " + jt1.total); // 1275
+		System.out.println("jt2.total = " + jt2.total); // 3775
+		
+		System.out.println("lastTotal = " + lastTotal); // 5050		
 	}
 
 }
@@ -199,13 +203,13 @@ public class JoinTest extends Thread{
 ## interrupt()
 - 다른 Thread에 예외를 발생시키는 interrupt를 보낸다.
 - Thread가 join(), sleep(), wait() 함수에의해 not-runnable 상태일 때 interrupt() 메서드를 호출하면 다시 runnable 상태가 될 수 있음
+<br>
 
 ## Thread 종료하기
 - Thread를 종료할 때 사용함
 - 무한 반복의 경우 while(flag)의 flag 변수값을 false로 바꾸어 종료를 시킴  
-
-- Thread 종료하기 예제
 ```
+## Thread 종료하기 예제 ##
 세 개의 thread를 만든다.
 각각 무한 루프를 수행하게 한다. 	
 작업 내용 this.sleep(100);
@@ -232,7 +236,6 @@ public class TerminateThread extends Thread{
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
