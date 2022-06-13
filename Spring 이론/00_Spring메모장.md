@@ -1,4 +1,4 @@
-# XSS, CSRF
+# :arrow_forward: XSS, CSRF
 XSS 는 클라이언트를 , CSRF 는 서버를 공격한다.
 
 
@@ -18,12 +18,12 @@ XSS를 방지하려면 쿠키에 중요한 정보를 담지않고 , 서버에 �
 CSRF는 백엔드에서 request의 referrer을 확인하여 domain정보가 일치하는지 검증하여 막을 수 있다.
 Reffer검증이 불가능할때 Security Token을 사용할 수 있다. 사용자의 세션에 임의의 난수값을 저장해서, 사용자의 요청마다 난수값을 포함해서 전송한다. 그럼 백엔드에서 토큰값(난수+데이터)가 일치하는지 검증하면 공격을 막을 수 있다. 
 
-  
+<br>
 
 
 # Call by value와 Call by reference
 
-## call by value : 값에 의한 호출
+## :arrow_forward: call by value : 값에 의한 호출
 
 함수가 호출될 때, 메모리 공간 안에서는 함수를 위한 별도의 임시공간이 생성됨 (종료 시 해당 공간 사라짐)
 
@@ -52,9 +52,9 @@ callByValue(a,b)를 할때 매개변수 a,b에 실제 a,b를 넣는게아니라 
 그러므로 실제 메서드 내부에서 사용되는 a,b는 이름과 가진 값만 같을뿐 다른 공간에 있는 변수다.  
 결국 메서내 내부에서 아무리 바뀌더라도 본래의 a,b에는 영향이 없다
 
+<Br>
 
-
-## call by reference : 참조에 의한 호출
+## :arrow_forward: call by reference : 참조에 의한 호출
 
 call by reference 호출 방식은 함수 호출 시 인자로 전달되는 변수의 레퍼런스(주소 값)을 전달
 
@@ -75,9 +75,10 @@ void main() {
 처음에 b는 10을 가지고있다. 하지만 위의 func()메서드에 들어가면 b는 메모리상의 20의 주소값(레퍼런스)을 가지게 된다. 그러므로 b를 print하면 20의 주소값을 가지고 있으므로 20이 출력된다. 
 이때 주소값(레퍼런스)를 바로 넘겨받는다고하여 call by reference라고 한다.
 
+<br>
 
 
-## Java 함수 호출 방식
+## :arrow_forward: Java 함수 호출 방식
 
 자바의 경우, 항상 call by value로 값을 넘긴다.
 일반 자료형의 경우 위에서 살펴본 예시와 동일하게 작동한다.
@@ -86,6 +87,7 @@ reference type(참조 자료형)은 조금 다르지만 동일하게 call by val
 기존의 call by reference가 주소값을 바로 넘겨주는것과 다르게 객체의 **주소값을 복사**하여 넘겨준다.  
 주소값을 복사한다는건 값을 복사한다는 call by value와 같은 의미이므로 자바에서 참조자료형의 호출은 call by value가 되는 것이다.  
 
+<br>
 
 
 # CORS
@@ -98,6 +100,14 @@ reference type(참조 자료형)은 조금 다르지만 동일하게 call by val
 백엔드에서 CORS를 허용할 사이트목록을 적어놓으면 허용한 사이트에 한해서만 작동한다.  
 
 상대적으로 서버에 영향을 주지않는 GET,POST 보다 PUT, DELETE같이 변경을 가하는 경우가 더 엄격한 CORS 기준을 가지고 있다.  
+
+[위키백과 CORS](https://developer.mozilla.org/ko/docs/Web/HTTP/CORS)  
+
+![CORS](../img/CORS.PNG)  
+
+
+
+
 
 
 
