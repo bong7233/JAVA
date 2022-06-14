@@ -106,6 +106,9 @@ reference type(참조 자료형)은 조금 다르지만 동일하게 call by val
 ![CORS](../img/CORS.PNG)  
 
 
+# JPA 공부 접근방식
+
+  
 
 
 
