@@ -106,7 +106,12 @@ reference type(참조 자료형)은 조금 다르지만 동일하게 call by val
 ![CORS](../img/CORS.PNG)  
 
 
-# JPA 공부 접근방식
+# :arrow_forward: JPA 공부 접근방식
+
+1. 인프런강의
+2. 패캠강의
+3. 실습페이지만들기
+4. 
 
   
 
